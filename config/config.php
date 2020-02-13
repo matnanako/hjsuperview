@@ -1,4 +1,7 @@
 <?php
+
+use App\Models\Miniapp;
+
 return [
     'class_url' => '',
     'info_url' => '',
@@ -9,7 +12,7 @@ return [
     'refresh_cache' => 0,
 
     // Api service host.
-    'api_base_url' => 'http://xzwh.api.zz314.com/downza',
+    'api_base_url' => 'http://xzwh.api.zz314.com/downza', //todo
 
     // Models alias map to class.
     'models' => [
@@ -46,11 +49,10 @@ return [
 
     //新缓存规则部分是使用
     'type' => [
-        'category' => ['children','utils','banner','category'],
-        'soft' => ['soft','android','iphone','tv','ipad','mac','bt','mobile','content','mgame','chip','driver','pcsoft','game','iossoft','sjsoft','macsoft','tvapp','WindowsMobile'],
-        'article' => ['xueyuan','edu','news'],
-        'zt' => ['topic'],
-        'bk' => ['softbaike','provider','tag']
+        'category' => ['category'],
+        'soft' => ['soft','android','ios','miniapp', 'dnb'],
+        'article' => [ 'news'],
+        'zt' => ['zt'],
     ],
 
 

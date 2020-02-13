@@ -31,7 +31,7 @@ class Base
         $params['filter']= BaseModel::getFilter();
         $data = $this->api->get($params);
         if (isset($data['status']) && $data['status'] > 0) {
-            return CacheKey::isComposite($params, $data);
+            return $data['data'];
         } else {
             return [];
         }

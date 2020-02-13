@@ -107,15 +107,15 @@ class BaseModel
      *
      * @return array
      */
-    protected function returnWithPage($data, $limit)
+    public function returnWithPage($data, $limit)
     {
         //针对count方法只返回字符串
         if(is_string($data))
         {
             return $data;
         }
-        $data['list'] = isset($data['list']) ? $data['list'] : $data;
-        $data['count'] = isset($data['count']) ? $data['count']: 0;
+        $data['list'] = $data['list'] ?? $data;
+        $data['count'] = $data['count'] ??  0;
         // 未设置分页url路由规则, 直接返回'list'包含数组.
         if (empty($this->pageOptions) || $this->pageOptions['route'] === false) {
             $response = empty($data['list'])?[]:$data['list'];
@@ -141,7 +141,6 @@ class BaseModel
         //树缓存单独拧出
         if($method=='SuperView\Models\CategoryModel::all'){
             return ':TotalCategory';
-            //return md5(\SConfig::get('api_base_url') . get_class($this). ':' . $method  . ':' . $this->virtualModel . ':' . http_build_query($this->pageOptions?:[]) . ':' . http_build_query($params));
         }
        return CacheKey::makeCachekey($method, $params, $model, $this->virtualModel);
     }
@@ -183,17 +182,6 @@ class BaseModel
                 $data['list'][$key]['classurl'] = $categoryModel->categoryUrl($value['classid']);
                 $data['list'][$key]['category'] = $category;
             }
-        }else{
-            //以数组形式的复合查询
-            foreach ($data as $key => $value) {
-                foreach ($value as $k => $v) {
-                   $category = $categoryModel->info($v['classid']);
-                   $data[$key][$k]['infourl'] = $this->infoUrl($v['id'], $category);
-                   $data[$key][$k]['classname'] = $category['classname'];
-                   $data[$key][$k]['classurl'] = $categoryModel->categoryUrl($v['classid']);
-                   $data[$key][$k]['category'] = $category;
-                }
-            }
         }
         return $data;
      }
@@ -210,30 +198,5 @@ class BaseModel
             $infoUrlTpl
         );
         return $infourl;
-    }
-    /**
-     * 是否设置分页
-     */
-    public function isPage(){
-        if(empty($this->pageOptions) || $this->pageOptions['route'] === false){
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * 是否不需要设置缓存（是否第一页）
-     *
-     * @return bool
-     */
-    public function isCache(){
-        if(empty($this->pageOptions) || $this->pageOptions['route'] === false){
-            return false;
-        }
-        $pageInfo=$this->pageOptions;
-        if($pageInfo['currentPage']==1){
-            return false;
-        }
-        return true;
     }
 }

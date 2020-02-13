@@ -24,7 +24,7 @@ class CacheKey
         //反射获取方法默认参数以及默认值（优先使用传递的参数作为key，没有用默认值）
         $param = self::reflex($model, $method);
         foreach ($param as $k => $value) {
-            $depend[$value->getName()] = isset($params[$value->getPosition()]) ? is_array($params[$value->getPosition()]) ? reset($params[$value->getPosition()]) : $params[$value->getPosition()] : $value->getDefaultValue();
+            $depend[$value->getName()] = isset($params[$value->getPosition()]) ? $params[$value->getPosition()] : $value->getDefaultValue();
         }
         //确保cachekey参数中的第一个为classid
         if (isset($depend)) {
@@ -81,7 +81,7 @@ class CacheKey
     }
 
     /**
-     * 反射获取参数
+     * 通过实例 获取反射参数
      *
      * @param $model
      * @param $method
@@ -167,7 +167,7 @@ class CacheKey
     }
 
     /**
-     * 获取custom所有参数及方法    最后修改方法名列如(index方法传递给api时需要修改为 lists)
+     * 获取custom所有参数及方法
      *
      * @param string $method 方法
      * @param array $arguments ＿＿call所有参数
@@ -189,7 +189,7 @@ class CacheKey
 
 
     /**
-     * 反射获取参数
+     * 通过参数 获取反射参数
      *
      * @param string $modelAlias 模型别名
      * @param string $method 方法名
@@ -231,33 +231,6 @@ class CacheKey
     }
 
     /**
-     * 判断复合查询且重组结果（复合查询结果是有多个list的数组['1'=>['list'=>[]],['2'=>['list'=>[]]]]，returnWithPage方法只会返回$data['list'].）
-     *
-     * @param array $params 请求api的参数
-     * @param array $data api返回的结果
-     * @return mixed
-     */
-    public static function isComposite($params, $data)
-    {
-        if (isset($params['arguments'])) {
-            return $data['data'];
-        }
-        $composite = 0;
-        foreach ($params as $v) {
-            if (is_array($v) && count($v) > 1) {
-                $composite = 1;
-                break;
-            }
-        }
-        if ($composite == 1) {
-            foreach ($data['data'] as $k => $v) {
-                $data['data'][$k] = $v['list'];
-            }
-        }
-        return $data['data'];
-    }
-
-    /**
      * content模型且不是info方法的 執行 addListInfo
      *
      * @param array $key 单次请求的所有数据
@@ -268,7 +241,7 @@ class CacheKey
         if (self::getModel($key[1]) == 'SuperView\Models\ContentModel' && $key[2] != 'info' && $key[2] != 'count') {
             return 1;
         }
-        if (in_array($key[2],['specials', 'topics'])) {
+        if (in_array($key[2],['specials'])) {
             return 3;
         }
         //由superTopic方法转换 需要走addlistinfo

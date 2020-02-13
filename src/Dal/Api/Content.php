@@ -59,10 +59,6 @@ class Content extends Base
      */
     public function getRankList($classid, $page, $limit, $isPic, $period)
     {
-        //取消时间段的验证，防止是数组
-//        if (!in_array($period, self::$periods)) {
-//            return false;
-//        }
         $params = [
             'classid' => ($classid),
             'page'    => intval($page),
