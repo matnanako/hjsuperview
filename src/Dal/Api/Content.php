@@ -329,24 +329,6 @@ class Content extends Base
     }
 
     /**
-     * 定制接口 获取相关软件 （此方法仅学院可用）
-     *
-     * @param $id
-     * @param $limit
-     * @return array|bool|mixed
-     */
-    public function getInfoRelated($id, $channel, $classid, $limit)
-    {
-        $params = [
-            'id'     => $id,
-            'classid' => $classid,
-            'channel' => $channel,
-            'limit' => $limit,
-        ];
-        return $this->getData('infoRelated', $params);
-    }
-
-    /**
      * 根据Tag词查询title定制方法
      *
      * @param $str
