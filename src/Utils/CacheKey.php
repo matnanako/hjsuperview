@@ -16,32 +16,18 @@ class CacheKey
      * @param $virtualModel
      * @return array
      */
-    public static function makeCachekey($method, $params, $model, $virtualModel)
+    public static function makeCachekey($method, $params, $virtualModel)
     {
-        $pivot = ':' . self::confirm_type($virtualModel);
-        $pattern = $virtualModel;
-        $action = $method;
         //反射获取方法默认参数以及默认值（优先使用传递的参数作为key，没有用默认值）
-        $param = self::reflex($model, $method);
-        foreach ($param as $k => $value) {
-            $depend[$value->getName()] = isset($params[$value->getPosition()]) ? $params[$value->getPosition()] : $value->getDefaultValue();
+        $param = self::reflexMethod($virtualModel, $method);
+        $depend = [];
+        foreach ($param AS $parameter) {
+            $position = $parameter['position'];
+            $depend[$parameter['name']] = isset($params[$position]) ? $params[$position] : $parameter['defaultValue'];
         }
+
         //确保cachekey参数中的第一个为classid
-        if (isset($depend)) {
-            foreach ($depend as $k => $v) {
-                if ($k == 'classid') {
-                    $key = $pivot . '::' . $pattern . '::' . $action . '::' . $v;
-                }
-            }
-        } else {
-            $depend = [];
-        }
-        isset($key) ? $key : $key = $pivot . '::' . $pattern . '::' . $action;
-        //参数除classid部分，过滤不需要存进缓存的参数，其他参数一一排序组成cachekey
-        $key .= self::filterStr($depend);
-        $reult['depend'] = $depend;
-        $reult['key'] = $key;
-        return $reult;
+        return self::custom($virtualModel, $method, $depend);
     }
 
     /**
@@ -55,9 +41,7 @@ class CacheKey
         $key = '';
         foreach ($depend as $k => $v) {
             if (!in_array($k, ['limit', 'isPic', 'classid'])) {
-                if ($v) {
-                    $key .= '::' . (is_array($v) ? reset($v) : $v);
-                }
+                $key .= '::' . $v;
             }
         }
         return $key;
@@ -81,19 +65,6 @@ class CacheKey
     }
 
     /**
-     * 通过实例 获取反射参数
-     *
-     * @param $model
-     * @param $method
-     * @return \ReflectionParameter[]
-     */
-    public static function reflex($model, $method)
-    {
-        $ReflectionFunc = new \ReflectionMethod($model, $method);
-        return $ReflectionFunc->getParameters();
-    }
-
-    /**
      * 针对缓存key且返回
      *
      * @param $params
@@ -104,12 +75,11 @@ class CacheKey
      */
     public static function insertCahce($params, $model, $method, $cacheMinutes)
     {
-        $cacheKeyInfo = \SCache::getCachekey($model, $method, $params, $cacheMinutes);
-        return $cacheKeyInfo['key'];
+        return  \SCache::getCachekey($model, $method, $params, $cacheMinutes);
     }
 
     /**
-     * 定制方法的key生成
+     * 缓存key生成
      *
      * @param $modelAlias
      * @param $method
@@ -228,27 +198,6 @@ class CacheKey
     {
         $models = \SConfig::get('models');
         return array_key_exists($modelAlias, $models) ? $models[$modelAlias] : $models['content'];
-    }
-
-    /**
-     * content模型且不是info方法的 執行 addListInfo
-     *
-     * @param array $key 单次请求的所有数据
-     * @return int 1指需要执行addlist方法 2不需要走addlist方法 3代表自定义方法需要循环后走adddlist方法
-     */
-    public static function getModelMethod($key)
-    {
-        if (self::getModel($key[1]) == 'SuperView\Models\ContentModel' && $key[2] != 'info' && $key[2] != 'count') {
-            return 1;
-        }
-        if (in_array($key[2],['specials'])) {
-            return 3;
-        }
-        //由superTopic方法转换 需要走addlistinfo
-        if ($key[2] == 'superTopic' || $key[2] == 'taginfo') {
-            return 1;
-        }
-        return 2;
     }
 
     /**

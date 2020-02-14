@@ -58,22 +58,16 @@ class CustomModel extends BaseModel
     {
         if ($this->arguments) {
             $data = $this->dal['custom']->getList('getList', ['arguments' => $this->arguments, 'limit' => $limit]);
-            foreach ($data AS $key => $value) {
-                $res = CacheKey::getModelMethod($this->arguments[$key]);
-                if ($res == 1) {
-                    $data[$key] = $this->addListInfo($value);
-                } elseif ($res == 3) {
-                    foreach ($value as $k => $v) {
-                        $data[$key][$k] = $this->addListInfo($v);
-                    }
-                }
-                $data[$key] = $this->returnWithPage($data[$key], $limit);
-            }
             //生成缓存
             CacheKey::customMakeCache($data, $this->allCacheKey, \SCache::getCacheTime());
         }
         //读取缓存
         $data = CacheKey::getAllCache($this->allCacheKey);
+        //添加参数
+        foreach ($data AS $key => $value) {
+            $data[$key] = $this->addListInfo($value); //todo 如果有定制方法需要遍历后走addListInfo的。需要添加判断条件
+            $data[$key] = $this->returnWithPage($data[$key], $limit);
+        }
         //初始化
         $this->initialize();
         return $data;

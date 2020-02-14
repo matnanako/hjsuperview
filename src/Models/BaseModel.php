@@ -136,13 +136,13 @@ class BaseModel
      * @return string
      */
 //  //缓存名称方式重构
-    public function makeCacheKey($method, $params = [], $model='')
+    public function makeCacheKey($method, $params = [])
     {
         //树缓存单独拧出
         if($method=='SuperView\Models\CategoryModel::all'){
             return ':TotalCategory';
         }
-       return CacheKey::makeCachekey($method, $params, $model, $this->virtualModel);
+       return CacheKey::makeCachekey($method, $params, $this->virtualModel);
     }
 
     /**
