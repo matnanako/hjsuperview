@@ -11,8 +11,7 @@ class ChipModel extends BaseModel
     public function infolist($chipid = 0, $classid = 0, $limit = 0)
     {
         $page = $this->getCurrentPage();
-        $data = $this->dal['chip']->getList($chipid, $classid, $page, $limit);
-        return $this->returnWithPage($data, $limit);
+        return $this->dal['chip']->getList($chipid, $classid, $page, $limit);
     }
 
     /**

@@ -158,7 +158,13 @@ class SuperView
         //分类相关与分页直接返回  复合查询不往下继续执行。
         if (($model instanceof CategoryModel) || $this->model->getActionPage() || ($model instanceof CustomModel)) {
             $data = $model->$method(...$params);
-            
+
+            if($this->model->getActionPage()) {
+                $limit =  $model->getLimit($method, $params);
+                $data = $model->addListInfo($data);
+                $data = $model->returnWithPage($data, $limit);
+            }
+
             //自定义方法独自初始化
             if (!($model instanceof CustomModel)) {
                 $model->reset();

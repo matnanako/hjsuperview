@@ -38,10 +38,9 @@ class CustomModel extends BaseModel
             \SCache::clearCache($onlyKey);
         }
         $data = \SCache::remember($onlyKey, \SCache::getCacheTime(), function () use ($limit) {
-            $data = $this->dal['custom']->getList('getOnly', ['arguments' => $this->allArgument, 'limit' => $limit]);
-            $data = $this->addListInfo($data);
-            return $data;
+            return $this->dal['custom']->getList('getOnly', ['arguments' => $this->allArgument, 'limit' => $limit]);
         });
+        $data = $this->addListInfo($data);
         //初始化
         $this->initialize();
         return isset($data['list'])?$data['list']:$data;

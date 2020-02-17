@@ -20,9 +20,7 @@ class ContentModel extends BaseModel
     public function recent($classid = 0, $limit = 0, $isPic = 0)
     {
         $page = $this->getCurrentPage();
-        $data = $this->dal()->getRecentList($classid, $page, $limit, $isPic);
-        $data = $this->addListInfo($data);
-        return $this->returnWithPage($data, $limit);
+        return $this->dal()->getRecentList($classid, $page, $limit, $isPic);
     }
 
     /**
@@ -31,9 +29,7 @@ class ContentModel extends BaseModel
     public function rank($rank = 'all', $classid = 0, $limit = 0, $isPic = 0)
     {
         $page = $this->getCurrentPage();
-        $data = $this->dal()->getRankList($classid, $page, $limit, $isPic, $rank);
-        $data = $this->addListInfo($data);
-        return $this->returnWithPage($data, $limit);
+        return  $this->dal()->getRankList($classid, $page, $limit, $isPic, $rank);
     }
 
     /**
@@ -42,9 +38,7 @@ class ContentModel extends BaseModel
     public function good($level = 0, $classid = 0, $limit = 0, $isPic = 0, $order = 'newstime')
     {
         $page = $this->getCurrentPage();
-        $data = $this->dal()->getLevelList('good', $classid, $page, $limit, $isPic, $level, $order);
-        $data = $this->addListInfo($data);
-        return $this->returnWithPage($data, $limit);
+        return $this->dal()->getLevelList('good', $classid, $page, $limit, $isPic, $level, $order);
     }
 
     /**
@@ -53,9 +47,7 @@ class ContentModel extends BaseModel
     public function top($level = 0, $classid = 0, $limit = 0, $isPic = 0, $order = 'newstime')
     {
         $page = $this->getCurrentPage();
-        $data = $this->dal()->getLevelList('top', $classid, $page, $limit, $isPic, $level, $order);
-        $data = $this->addListInfo($data);
-        return $this->returnWithPage($data, $limit);
+        return $this->dal()->getLevelList('top', $classid, $page, $limit, $isPic, $level, $order);
     }
 
     /**
@@ -64,9 +56,7 @@ class ContentModel extends BaseModel
     public function firsttitle($level = 0, $classid = 0, $limit = 0, $isPic = 0, $order = 'newstime')
     {
         $page = $this->getCurrentPage();
-        $data = $this->dal()->getLevelList('firsttitle', $classid, $page, $limit, $isPic, $level, $order);
-        $data = $this->addListInfo($data);
-        return $this->returnWithPage($data, $limit);
+        return $this->dal()->getLevelList('firsttitle', $classid, $page, $limit, $isPic, $level, $order);
     }
 
     /**
@@ -75,9 +65,7 @@ class ContentModel extends BaseModel
     public function today($classid = 0, $limit = 0, $isPic = 0, $order = 'newstime')
     {
         $page = $this->getCurrentPage();
-        $data = $this->dal()->getTodayList('today', $classid, $page, $limit, $isPic, $order);
-        $data = $this->addListInfo($data);
-        return $this->returnWithPage($data, $limit);
+        return $this->dal()->getTodayList('today', $classid, $page, $limit, $isPic, $order);
     }
 
     /**
@@ -86,9 +74,7 @@ class ContentModel extends BaseModel
     public function interval($start = 0, $end = 0, $classid = 0, $limit = 0, $isPic = 0, $order = 'newstime')
     {
         $page = $this->getCurrentPage();
-        $data = $this->dal()->getIntervalList($start, $end, $classid, $page, $limit, $isPic, $order);
-        $data = $this->addListInfo($data);
-        return $this->returnWithPage($data, $limit);
+        return $this->dal()->getIntervalList($start, $end, $classid, $page, $limit, $isPic, $order);
     }
 
     /**
@@ -114,9 +100,7 @@ class ContentModel extends BaseModel
             return false;
         }
         $page = $this->getCurrentPage();
-        $data = $this->dal()->getListByTitle($title, $classid, $page, $limit, $isPic, $order);
-        $data = $this->addListInfo($data);
-        return $this->returnWithPage($data, $limit);
+        return $this->dal()->getListByTitle($title, $classid, $page, $limit, $isPic, $order);
     }
 
     /**
@@ -128,9 +112,7 @@ class ContentModel extends BaseModel
             return false;
         }
         $page = $this->getCurrentPage();
-        $data = $this->dal()->getRelatedList($id, $page, $limit, $isPic, $order);
-        $data = $this->addListInfo($data);
-        return $this->returnWithPage($data, $limit);
+        return $this->dal()->getRelatedList($id, $page, $limit, $isPic, $order);
     }
 
     /**
@@ -142,9 +124,7 @@ class ContentModel extends BaseModel
             return false;
         }
         $page = $this->getCurrentPage();
-        $data = $this->dal()->getListByTag($tag, $classid, $page, $limit, $isPic, $order);
-        $data = $this->addListInfo($data);
-        return $this->returnWithPage($data, $limit);
+        return $this->dal()->getListByTag($tag, $classid, $page, $limit, $isPic, $order);
     }
 
     /**
@@ -173,8 +153,7 @@ class ContentModel extends BaseModel
         if (empty($id)) {
             return false;
         }
-        $data = $this->dal()->getInfoTopics($id, $limit);
-        return $this->returnWithPage($data, $limit);
+        return $this->dal()->getInfoTopics($id, $limit);
     }
 
     /**
@@ -186,9 +165,7 @@ class ContentModel extends BaseModel
             return false;
         }
         $page = $this->getCurrentPage();
-        $data = $this->dal()->getListByTopicId($topicId, $page, $limit);
-        $data = $this->addListInfo($data);
-        return $this->returnWithPage($data, $limit);
+        return $this->dal()->getListByTopicId($topicId, $page, $limit);
     }
 
     /**
@@ -200,9 +177,7 @@ class ContentModel extends BaseModel
             return false;
         }
         $page = $this->getCurrentPage();
-        $data = $this->dal()->getListByKeyword($str, $classid, $page, $limit, $isPic, $order);
-        $data = $this->addListInfo($data);
-        return $this->returnWithPage($data, $limit);
+        return $this->dal()->getListByKeyword($str, $classid, $page, $limit, $isPic, $order);
     }
 
     /**
@@ -235,9 +210,7 @@ class ContentModel extends BaseModel
             return [];
         }
         $page = $this->getCurrentPage();
-        $data = $this->dal()->getListByFieldValue($field,$value, $classid, $page, $limit, $isPic, $order);
-        $data = $this->addListInfo($data);
-        return $this->returnWithPage($data, $limit);
+        return $this->dal()->getListByFieldValue($field,$value, $classid, $page, $limit, $isPic, $order);
     }
 
     /**
@@ -268,9 +241,7 @@ class ContentModel extends BaseModel
             $order = 'newstime';
         }
 
-        $data = $this->dal()->near($id,$limit,$classid,$equal,$ispic,$order);
-        $data = $this->addListInfo($data);
-        return $this->returnWithPage($data, $limit);
+        return $this->dal()->near($id,$limit,$classid,$equal,$ispic,$order);
     }
 
 
@@ -307,9 +278,7 @@ class ContentModel extends BaseModel
      */
     public function relatedSearch($str, $classid = 0, $limit = 0, $isPic = 0, $order = 'newstime')
     {
-        $data = $this->dal()->getRelatedSearch($str, $classid, $limit, $isPic, $order);
-        $data = $this->addListInfo($data);
-        return $data;
+        return $this->dal()->getRelatedSearch($str, $classid, $limit, $isPic, $order);
     }
 
     /**
@@ -327,8 +296,6 @@ class ContentModel extends BaseModel
     {
 
         $page = $this->getCurrentPage();
-        $data = $this->dal()->getExactMatch($field,$value, $classid, $page, $limit, $ispic, $order);
-        $data = $this->addListInfo($data);
-        return $this->returnWithPage($data, $limit);
+        return $this->dal()->getExactMatch($field,$value, $classid, $page, $limit, $ispic, $order);
     }
 }

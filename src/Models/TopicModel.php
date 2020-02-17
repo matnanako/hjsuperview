@@ -11,8 +11,7 @@ class TopicModel extends BaseModel
     public function index($zcid = 0, $classid = 0, $limit = 0, $order = 'addtime')
     {
         $page = $this->getCurrentPage();
-        $data = $this->dal['topic']->getList($zcid, $classid, $page, $limit, $order);
-        return $this->returnWithPage($data, $limit);
+        return $this->dal['topic']->getList($zcid, $classid, $page, $limit, $order);
     }
 
     /**
@@ -52,12 +51,10 @@ class TopicModel extends BaseModel
     public function taginfo($ztid,$classid,$limit)
     {
         $page = $this->getCurrentPage();
-        $data = $this->dal['topic']->taginfo($ztid, $classid, $page, $limit);
-        $data = $this->addListInfo($data);
-        return $this->returnWithPage($data, $limit);
+        return $this->dal['topic']->taginfo($ztid, $classid, $page, $limit);
     }
     /**
-     * 详情页定制接口
+     * 详情页定制接口 todo 测试方法待删除
      *
      * @param $id
      * @param string $model
@@ -85,9 +82,7 @@ class TopicModel extends BaseModel
             return false;
         }
         $page = $this->getCurrentPage();
-        $data = $this->dal['topic']->getContentByTopicId($ztid, $page, $limit);
-        $data = $this->addListInfo($data);
-        return $this->returnWithPage($data, $limit);
+        return $this->dal['topic']->getContentByTopicId($ztid, $page, $limit);
     }
 
 }

@@ -11,8 +11,7 @@ class TagModel extends BaseModel
     public function index($isGood = 0, $classid = 0, $limit = 0, $order = 'addtime')
     {
         $page = $this->getCurrentPage();
-        $data = $this->dal['tag']->getList($classid, $isGood, $page, $limit, $order);
-        return $this->returnWithPage($data, $limit);
+        return $this->dal['tag']->getList($classid, $isGood, $page, $limit, $order);
     }
 
     public function indexCount($isGood = 0, $classid = 0, $limit = 0, $order = 'addtime')

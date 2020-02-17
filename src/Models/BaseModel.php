@@ -199,4 +199,16 @@ class BaseModel
         );
         return $infourl;
     }
+
+    /**
+     * 获取方法limit值
+     *
+     * @param $method
+     * @param $params
+     * @throws \Exception
+     */
+    public function getLimit($method, $params)
+    {
+        return CacheKey::getLimit($this->virtualModel, $method, $params);
+    }
 }

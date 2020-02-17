@@ -157,6 +157,23 @@ class CacheKey
         return $res;
     }
 
+    /**
+     * 获取方法limit字段的值
+     *
+     * @param $modelAlias
+     * @param $method
+     * @throws \Exception
+     */
+    public static function getLimit($modelAlias, $method, $params)
+    {
+        $param = self::reflexMethod($modelAlias, $method);
+        $depend = [];
+        foreach ($param AS $parameter) {
+            $position = $parameter['position'];
+            $depend[$parameter['name']] = isset($params[$position]) ? $params[$position] : $parameter['defaultValue'];
+        }
+        return $depend['limit'] ?? 0;
+    }
 
     /**
      * 通过参数 获取反射参数
