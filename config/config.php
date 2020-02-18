@@ -1,8 +1,5 @@
 <?php
 
-use App\Models\Miniapp;
-use SuperView\Dal\Api\Custom;
-
 return [
     'class_url' => '',
     'info_url' => '',
