@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Miniapp;
+use SuperView\Dal\Api\Custom;
 
 return [
     'class_url' => '',
@@ -24,6 +25,8 @@ return [
         'chip' => SuperView\Models\ChipModel::class,
         'banner' => SuperView\Models\BannerModel::class,
         'custom' => SuperView\Models\CustomModel::class,
+        'comment' => SuperView\Models\CommentModel::class,
+        'inner' => SuperView\Models\InnerModel::class,
     ],
 
     'dals' => [
@@ -35,6 +38,8 @@ return [
         'chip' => SuperView\Dal\Api\Chip::class,
         'banner' => SuperView\Dal\Api\Banner::class,
         'custom' => SuperView\Dal\Api\Custom::class,
+        'comment' => SuperView\Dal\Api\Comment::class,
+        'inner' => SuperView\Dal\Api\Inner::class,
     ],
 
     'pagination' => [
