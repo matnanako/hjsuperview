@@ -53,7 +53,7 @@ return [
     'type' => [
         'category' => ['category'],
         'soft' => ['soft','android','ios','miniapp', 'dnb'],
-        'article' => [ 'news'],
+        'news' => [ 'news'],
         'zt' => ['zt'],
     ],
 
