@@ -10,7 +10,7 @@ return [
     'refresh_cache' => 0,
 
     // Api service host.
-    'api_base_url' => 'http://xzwh.api.zz314.com/downza', //todo
+    'api_base_url' => 'http://hj.api.zz314.com/huajun',
 
     // Models alias map to class.
     'models' => [
