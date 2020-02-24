@@ -1,10 +1,10 @@
 {
-    "name": "njxzwh/superview",
+    "name": "njxzwh/hjsuperview",
     "type": "library",
     "description": "A simple CMS content helper.",
     "keywords": [
         "njxzwh",
-        "superview"
+        "hjsuperview"
     ],
     "license": "MIT",
     "require": {
