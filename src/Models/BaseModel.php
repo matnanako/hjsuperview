@@ -179,6 +179,7 @@ class BaseModel
                 $category = $categoryModel->info($value['classid']);
                 $data['list'][$key]['infourl'] = $this->infoUrl($value['id'], $category);
                 $data['list'][$key]['classname'] = $category['classname'];
+                $data['list'][$key]['classpath'] = $category['classpath'];
                 $data['list'][$key]['classurl'] = $categoryModel->categoryUrl($value['classid']); //TODO infourl与下载之家不同
                 $data['list'][$key]['category'] = $category;
             }

@@ -38,7 +38,16 @@ class ContentModel extends BaseModel
     public function good($level = 0, $classid = 0, $limit = 0, $isPic = 0, $order = 'newstime')
     {
         $page = $this->getCurrentPage();
-        return $this->dal()->getLevelList('good', $classid, $page, $limit, $isPic, $level, $order);
+        return $this->dal()->getLevelList('isgood', $classid, $page, $limit, $isPic, $level, $order);
+    }
+
+    /**
+     *  排序信息列表
+     */
+    public function order($classid = 0, $limit = 0, $order = 'newstime')
+    {
+        $page = $this->getCurrentPage();
+        return $this->dal()->getOrderList($classid, $page, $limit, $order);
     }
 
     /**
@@ -297,5 +306,199 @@ class ContentModel extends BaseModel
 
         $page = $this->getCurrentPage();
         return $this->dal()->getExactMatch($field,$value, $classid, $page, $limit, $ispic, $order);
+    }
+
+    /**
+     * 查询多个class下的推荐数据
+     *
+     * @param int $firsttitle 头条等级
+     * @param array $classidArr  分类数组
+     * @param int $limit
+     * @param string $order
+     * @return mixed
+     */
+    public function firsttitleInClass($firsttitle = 1, $classidArr = [], $limit = 0, $order = 'newstime')
+    {
+        return $this->dal()->firsttitleInClass($firsttitle, $classidArr, $limit, $order);
+    }
+
+    /**
+     * 查询classid不等于某个值
+     *
+     * @param int $classid
+     * @param int $limit
+     * @param string $order
+     * @return mixed
+     */
+    public function neq($classid = 0, $limit = 0, $order = 'newstime')
+    {
+        return $this->dal()->getNeq($classid, $limit, $order);
+    }
+
+    /**
+     * 通过cid获取厂商
+     *
+     * @param int $cid
+     * @return mixed
+     */
+    public function company($cid = 0)
+    {
+        return  $this->dal()->getCompany($cid);
+    }
+
+    /**
+     * 获取厂商列表（仅限厂商使用）
+     *
+     * @param int $limit
+     * @param string $order
+     * @return mixed
+     */
+    public function companyList($limit = 0, $order = "dnb_num")
+    {
+        $page = $this->getCurrentPage();
+        return  $this->dal()->getCompanyList($limit, $order, $page);
+    }
+
+    /**
+     * 通过path获取厂商信息
+     *
+     * @param $company_path
+     * @return mixed
+     */
+    public function companyPath($company_path = '')
+    {
+        return  $this->dal()->companyPath($company_path);
+    }
+
+    /**
+     * 攻略列表
+     *
+     * @param int $game_id
+     * @param int $limit
+     * @param string $order
+     * @return mixed
+     */
+    public function strategy($game_id = 0, $limit = 0, $order = 'lastdotime')
+    {
+        $page = $this->getCurrentPage();
+        return  $this->dal()->getStrategy($game_id, $page, $limit, $order);
+    }
+
+    /**
+     * 通过$downstatus和$isgood获取热门游戏推荐列表
+     *
+     * @param int $downstatus
+     * @param int $isgood
+     * @param int $limit
+     * @param string $order
+     * @return mixed
+     */
+    public function rankRule($downstatus = 0, $isgood = 0, $limit = 0, $order = 'lastdotime')
+    {
+        return  $this->dal()->getrankRule($downstatus, $isgood, $limit, $order);
+    }
+
+    /**
+     * 通过id不等级和game_id等于获取攻略
+     *
+     * @param $id
+     * @param int $game_id
+     * @param int $limit
+     * @param string $order
+     * @return mixed
+     */
+    public function otherStrategy($id, $game_id = 0, $limit = 0, $order = 'newstime')
+    {
+        return  $this->dal()->getOtherStrategy($id, $game_id, $limit, $order);
+    }
+
+    /**
+     * 小编推荐
+     *
+     * @param $softid
+     * @param $classid
+     * @return mixed
+     */
+    public function tuijian($softid = 0, $classid = 0, $limit = 3)
+    {
+        return  $this->dal()->getTuijian($softid, $classid, $limit);
+    }
+
+    /**
+     * 自定义参数请求（参数和值数量必须对应）
+     *
+     * @param $fileds
+     * @param $values
+     * @param int $limit
+     * @param string $order
+     * @return mixed
+     */
+    public function customList($fields, $limit = 0, $order = 'lastdotime')
+    {
+        $page = $this->getCurrentPage();
+        return $this->dal()->getCustomList($fields, $limit, $order, $page);
+    }
+
+    /**
+     * dnb 列表 （id not in&operator_id in）
+     *
+     * @param array $ids
+     * @param int $cid
+     * @param string $order
+     * @return mixed
+     */
+    public function allGameByIdAndCid($ids, $cid = 0, $order = 'onclick')
+    {
+        return $this->dal()->allGameByIdAndCid($ids, $cid, $order);
+    }
+
+    /**
+     * 获取评论
+     *
+     * @param int $softid
+     * @param int $checked
+     * @param int $limit
+     * @return mixed
+     */
+    public function getPl($softid = 0, $checked = 0,  $limit = 0)
+    {
+        return $this->dal()->getPl($softid, $checked, $limit);
+    }
+
+    /**
+     * 获取所有评论
+     *
+     * @param $id
+     * @param string $order
+     * @return mixed
+     */
+    public function getAllPl($id, $order = 'saytime')
+    {
+        return $this->dal()->getAllPl($id, $order);
+    }
+
+    /**
+     * 获取其他版本
+     *
+     * @param $softid
+     * @return mixed
+     */
+    public function otherSoft($softid)
+    {
+        return $this->dal()->otherSoft($softid);
+    }
+
+    /**
+     * 存在不等于的组合查询
+     *
+     * @param array $fields
+     * @param array $vary
+     * @param int $limit
+     * @param string $order
+     * @return mixed
+     */
+    public function customVary($fields = [], $vary = [], $limit = 0, $order = 'weekip')
+    {
+        return $this->dal['inner']->customVary($fields, $vary, $limit, $order);
     }
 }
