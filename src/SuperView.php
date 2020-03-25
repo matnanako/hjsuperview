@@ -159,10 +159,9 @@ class SuperView
         if (($model instanceof CategoryModel) || $this->model->getActionPage() || ($model instanceof CustomModel)) {
             $data = $model->$method(...$params);
 
-            if($this->model->getActionPage()) {
-                $limit =  $model->getLimit($method, $params);
+            if ($this->model->getActionPage()) {
                 $data = $model->addListInfo($data);
-                $data = $model->returnWithPage($data, $limit);
+                $data = $model->returnWithPage($data);
             }
 
             //自定义方法独自初始化
@@ -177,14 +176,14 @@ class SuperView
         $cacheKey = CacheKey::insertCahce($params, $model, $method, $cacheMinutes);
         $data = \SCache::remember($cacheKey, $cacheMinutes, function () use ($model, $method, $params) {
             $data = $model->$method(...$params);
-            if(empty($data)){
+            if (empty($data)) {
                 $data = [];
             }
             return $data;
         });
 
         $data = $model->addListInfo($data);
-        $data = $model->returnWithPage($data, 0);
+        $data = $model->returnWithPage($data);
 
         // 重置$model状态(目前包括去除分页设置)
         // reset方法不可以在$model内自动调用,

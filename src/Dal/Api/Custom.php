@@ -15,5 +15,4 @@ class Custom extends Base
     {
         return $this->getData($action, $params);
     }
-
 }

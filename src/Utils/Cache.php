@@ -88,7 +88,12 @@ class Cache extends CacheFacade
         return $cache_key;
     }
 
-
+    /**
+     * 判断是否存在缓存
+     *
+     * @param $key
+     * @return mixed
+     */
     public static function has($key)
     {
         return parent::has($key);

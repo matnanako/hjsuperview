@@ -16,27 +16,25 @@ return [
     'models' => [
         'content' => SuperView\Models\ContentModel::class,
         'category' => SuperView\Models\CategoryModel::class,
-        'topic' => SuperView\Models\TopicModel::class,
-        'tag' => SuperView\Models\TagModel::class,
+        'zt' => SuperView\Models\TopicModel::class,
         'utils' => SuperView\Models\UtilsModel::class,
-        'chip' => SuperView\Models\ChipModel::class,
-        'banner' => SuperView\Models\BannerModel::class,
         'custom' => SuperView\Models\CustomModel::class,
         'comment' => SuperView\Models\CommentModel::class,
         'inner' => SuperView\Models\InnerModel::class,
+        'foot' => SuperView\Models\InnerModel::class,
+        'other' => SuperView\Models\OtherModel::class,
     ],
 
     'dals' => [
         'content' => SuperView\Dal\Api\Content::class,
         'category' => SuperView\Dal\Api\Category::class,
-        'topic' => SuperView\Dal\Api\Topic::class,
-        'tag' => SuperView\Dal\Api\Tag::class,
+        'zt' => SuperView\Dal\Api\Topic::class,
         'utils' => SuperView\Dal\Api\Utils::class,
-        'chip' => SuperView\Dal\Api\Chip::class,
-        'banner' => SuperView\Dal\Api\Banner::class,
         'custom' => SuperView\Dal\Api\Custom::class,
         'comment' => SuperView\Dal\Api\Comment::class,
         'inner' => SuperView\Dal\Api\Inner::class,
+        'foot' => SuperView\Dal\Api\Inner::class,
+        'other' => SuperView\Dal\Api\Other::class,
     ],
 
     'pagination' => [
@@ -52,10 +50,15 @@ return [
     //新缓存规则部分是使用
     'type' => [
         'category' => ['category'],
-        'soft' => ['soft','android','ios','miniapp', 'dnb'],
-        'news' => [ 'news'],
+        'soft' => ['soft', 'android', 'ios', 'applet', 'dnb', 'mini'],
+        'news' => ['news'],
         'zt' => ['zt'],
+        'strategy' => ['strategy'],
+        'inner' => ['foot', 'inner'],
+        'company' => ['company']
     ],
 
+    //api设置的最小查询limit
+    'limit' => 15,
 
 ];

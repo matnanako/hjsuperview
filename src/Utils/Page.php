@@ -1,4 +1,5 @@
 <?php
+
 namespace SuperView\Utils;
 
 class Page
@@ -19,12 +20,12 @@ class Page
     /**
      * Create a new paginator instance.
      *
-     * @param  string  $route
-     * @param  int  $total
-     * @param  int  $perPage
-     * @param  int|null  $currentPage
-     * @param  boolean  $simple
-     * @param  array  $options
+     * @param  string $route
+     * @param  int $total
+     * @param  int $perPage
+     * @param  int|null $currentPage
+     * @param  boolean $simple
+     * @param  array $options
      * @return void
      */
     public function __construct($route, $total, $perPage, $currentPage = null, $simple = false, $options = [])
@@ -43,8 +44,8 @@ class Page
     protected function setCurrentPage($currentPage)
     {
         $this->currentPage = (filter_var($currentPage, FILTER_VALIDATE_INT) !== false
-            && (int) $currentPage >= 1
-            && (int) $currentPage <= $this->totalPage) ? $currentPage : 1;
+            && (int)$currentPage >= 1
+            && (int)$currentPage <= $this->totalPage) ? $currentPage : 1;
     }
 
     /**
@@ -142,9 +143,9 @@ class Page
             return '';
         }
         $block = [
-            'first'  => null,
+            'first' => null,
             'slider' => null,
-            'last'   => null
+            'last' => null
         ];
 
         $side = 2;
@@ -155,14 +156,14 @@ class Page
             $block['first'] = $this->getUrlRange(1, $this->totalPage);
         } elseif ($this->currentPage <= $both) { // 1,2,3,4,5...8, 当前分页在both范围内显示此种效果
             $block['first'] = $this->getUrlRange(1, $both + 1);
-            $block['last']  = $this->getUrlRange($this->totalPage, $this->totalPage);
+            $block['last'] = $this->getUrlRange($this->totalPage, $this->totalPage);
         } elseif ($this->currentPage > ($this->totalPage - $both)) { // 1...4,5,6,7,8
             $block['first'] = $this->getUrlRange(1, 1);
-            $block['last']  = $this->getUrlRange($this->totalPage - ($both + 1), $this->totalPage);
+            $block['last'] = $this->getUrlRange($this->totalPage - ($both + 1), $this->totalPage);
         } else {
-            $block['first']  = $this->getUrlRange(1, 1);
+            $block['first'] = $this->getUrlRange(1, 1);
             $block['slider'] = $this->getUrlRange($this->currentPage - $side, $this->currentPage + $side);
-            $block['last']   = $this->getUrlRange($this->totalPage, $this->totalPage);
+            $block['last'] = $this->getUrlRange($this->totalPage, $this->totalPage);
         }
 
         $html = '';
@@ -223,7 +224,7 @@ class Page
      * 生成普通页码按钮
      *
      * @param  string $url
-     * @param  int    $page
+     * @param  int $page
      * @return string
      */
     protected function getPageLinkWrapper($url, $page)
@@ -239,7 +240,7 @@ class Page
      * 生成一个可点击的按钮
      *
      * @param  string $url
-     * @param  int    $page
+     * @param  int $page
      * @return string
      */
     protected function getAvailablePageWrapper($url, $page)

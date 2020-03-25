@@ -3,20 +3,22 @@
 namespace SuperView\Dal\Api;
 
 /**
-* Tag Dal.
-*/
+ * Utils Dal.
+ */
 class Utils extends Base
 {
-    
-    public function getFriendLinks($type, $classid, $limit)
+    /**
+     * 获取软件相关词
+     *
+     * @param $softid
+     * @return array|bool
+     */
+    public function relationWord($softid)
     {
         $params = [
-            'type'    => ($type),
-            'classid' => ($classid),
-            'num'     => intval($limit),
+            'softid' => $softid,
         ];
-        return $this->getData('friendlinks', $params);
+        return $this->getData('relationWord', $params);
     }
-
 
 }

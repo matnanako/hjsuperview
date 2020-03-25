@@ -30,9 +30,27 @@ class CategoryModel extends BaseModel
     }
 
     /**
+     * 获取顶级分类
+     *
+     * @param int $classid
+     * @return array|bool
+     */
+    public function finalFather($classid = 0)
+    {
+        if (empty($classid)) {
+            return false;
+        }
+        $class_info = $this->info($classid);
+        if ($class_info['bclassid'] != 0) {
+            return $this->finalFather($class_info['bclassid']);
+        }
+        return $class_info;
+    }
+
+    /**
      * Get category detail.
      *
-     * @param  int  $classid
+     * @param  int $classid
      * @return boolean | array
      */
     public function info($classid = 0)
@@ -51,7 +69,7 @@ class CategoryModel extends BaseModel
     /**
      * Get category final children.
      *
-     * @param  int  $classid
+     * @param  int $classid
      * @return boolean | array
      */
     public function finalChildren($classid = 0, $limit = 0)
@@ -80,16 +98,16 @@ class CategoryModel extends BaseModel
         }
 
         $page = $this->getCurrentPage();
-        $data['list'] = array_slice($children, ($page-1) * $limit, $limit);
+        $data['list'] = array_slice($children, ($page - 1) * $limit, $limit);
         $data['count'] = count($children);
 
-        return $this->returnWithPage($data, $limit);
+        return $this->returnWithPage($data);
     }
 
     /**
      * 获取分类的下一级分类.
      *
-     * @param  int  $classid
+     * @param  int $classid
      * @return boolean | array
      */
     public function children($classid = 0, $limit = 0)
@@ -112,16 +130,16 @@ class CategoryModel extends BaseModel
 
         // 需要生成分页
         $page = $this->getCurrentPage();
-        $data['list'] = array_slice($children, ($page-1) * $limit, $limit);
+        $data['list'] = array_slice($children, ($page - 1) * $limit, $limit);
         $data['count'] = count($children);
 
-        return $this->returnWithPage($data, $limit);
+        return $this->returnWithPage($data);
     }
 
     /**
      * Get category brother.
      *
-     * @param  int  $classid
+     * @param  int $classid
      * @return boolean | array
      */
     public function brothers($classid = 0)
@@ -206,6 +224,27 @@ class CategoryModel extends BaseModel
     }
 
     /**
+     * 通过classpath获取分类信息
+     *
+     * @param string $classpath
+     * @return bool|mixed
+     */
+    public function classPath($classpath = '')
+    {
+        if (empty($classpath)) {
+            return false;
+        }
+
+        $categorys = $this->all();
+        foreach ($categorys as $category) {
+            if (strpos($category['classpath'], $classpath) !== false) {
+                return $category;
+            }
+        }
+        return false;
+    }
+
+    /**
      * 根据class_url配置获取分类页url.
      *
      * @return string
@@ -218,7 +257,7 @@ class CategoryModel extends BaseModel
             return '';
         }
         $classurl = str_replace(
-            ['{channel}','{classname}','{classid}','{page}'],
+            ['{channel}', '{classname}', '{classid}', '{page}'],
             [$category['channel'], $category['bname'], $classid, $page],
             $classUrlTpl
         );
@@ -291,7 +330,7 @@ class CategoryModel extends BaseModel
      *
      * @return string
      */
-    public function makeCacheKey($method, $params = [] ,$model='')
+    public function makeCacheKey($method, $params = [], $model = '')
     {
         return false;
     }
