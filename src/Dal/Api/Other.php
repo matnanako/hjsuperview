@@ -3,14 +3,14 @@
 namespace SuperView\Dal\Api;
 
 /**
-* Tag Dal.
-*/
+ * Other Dal.
+ */
 class Other extends Base
 {
     public function sortTdk($classid, $order)
     {
         $params = [
-            'classid'  => $classid,
+            'classid' => $classid,
             'order' => $order,
         ];
 

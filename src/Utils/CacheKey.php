@@ -12,9 +12,9 @@ class CacheKey
      *
      * @param $method
      * @param $params
-     * @param $model
      * @param $virtualModel
-     * @return array
+     * @return string
+     * @throws \Exception
      */
     public static function makeCachekey($method, $params, $virtualModel)
     {
@@ -31,25 +31,35 @@ class CacheKey
     }
 
     /**
-     * 过滤字段生成最终缓存key
+     * 过滤字段生成最终缓存key(contentModel的limit小于15条，缓存key统一使用15条)
      *
      * @param $depend
      * @return mixed
      */
-    public static function filterStr($depend)
+    public static function filterStr($depend, $modelAlias)
     {
+        $model = self::getModel($modelAlias);
+        $limit = \Sconfig::get('limit');
         $key = '';
         foreach ($depend as $k => $v) {
-            if (!in_array($k, ['limit', 'isPic', 'classid'])) {
-                if(is_array($v)){
-                    if(static::is_assoc($v)){
-                        foreach($v as $ke => $val){
-                            $key .= '::'. $ke .'::'. (is_array($val) ? implode(',', $val) : $val);
+            if (!in_array($k, ['isPic', 'classid', 'limit'])) {
+                if (is_array($v)) {
+                    if (static::is_assoc($v)) {
+                        foreach ($v as $ke => $val) {
+                            $key .= '::' . $ke . '::' . (is_array($val) ? implode(',', $val) : $val);
                         }
-                    }else{
-                        $key .= '::'. implode(',', $v);
+                    } else {
+                        $key .= '::' . implode(',', $v);
                     }
-                }else {
+                } else {
+                    $key .= '::' . $v;
+                }
+            }
+            if ($k == 'limit') {
+                if ($model === 'SuperView\Models\ContentModel') {
+                    $limit = $v < $limit ? $limit : $v;
+                    $key .= '::' . $limit;
+                } else {
                     $key .= '::' . $v;
                 }
             }
@@ -58,7 +68,7 @@ class CacheKey
     }
 
     /**
-     * 判断索引数组
+     * 判断关联数组
      *
      * @param $array
      * @return bool
@@ -97,7 +107,7 @@ class CacheKey
      */
     public static function insertCahce($params, $model, $method, $cacheMinutes)
     {
-        return  \SCache::getCachekey($model, $method, $params, $cacheMinutes);
+        return \SCache::getCachekey($model, $method, $params, $cacheMinutes);
     }
 
     /**
@@ -111,10 +121,10 @@ class CacheKey
     public static function custom($modelAlias, $method, $param)
     {
         return ':' . self::confirm_type($modelAlias)
-        . '::' . $modelAlias . '::'
-        . $method
-        . (isset($param['classid']) ? '::' . $param['classid'] : '')
-        . self::filterStr($param);
+            . '::' . $modelAlias . '::'
+            . $method
+            . (isset($param['classid']) ? '::' . $param['classid'] : '')
+            . self::filterStr($param, $modelAlias);
     }
 
     /**
@@ -177,24 +187,6 @@ class CacheKey
             $res['param'][$parameter['name']] = isset($arguments[$position]) ? $arguments[$position] : $parameter['defaultValue'];
         }
         return $res;
-    }
-
-    /**
-     * 获取方法limit字段的值
-     *
-     * @param $modelAlias
-     * @param $method
-     * @throws \Exception
-     */
-    public static function getLimit($modelAlias, $method, $params)
-    {
-        $param = self::reflexMethod($modelAlias, $method);
-        $depend = [];
-        foreach ($param AS $parameter) {
-            $position = $parameter['position'];
-            $depend[$parameter['name']] = isset($params[$position]) ? $params[$position] : $parameter['defaultValue'];
-        }
-        return $depend['limit'] ?? 0;
     }
 
     /**

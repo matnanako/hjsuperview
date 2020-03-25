@@ -43,7 +43,7 @@ class CustomModel extends BaseModel
         $data = $this->addListInfo($data);
         //初始化
         $this->initialize();
-        return isset($data['list'])?$data['list']:$data;
+        return isset($data['list']) ? $data['list'] : $data;
     }
 
     /**
@@ -64,8 +64,8 @@ class CustomModel extends BaseModel
         $data = CacheKey::getAllCache($this->allCacheKey);
         //添加参数
         foreach ($data AS $key => $value) {
-            $data[$key] = $this->addListInfo($value); //todo 如果有定制方法需要遍历后走addListInfo的。需要添加判断条件
-            $data[$key] = $this->returnWithPage($data[$key], $limit);
+            $data[$key] = $this->addListInfo($value);
+            $data[$key] = $this->returnWithPage($data[$key]);
         }
         //初始化
         $this->initialize();

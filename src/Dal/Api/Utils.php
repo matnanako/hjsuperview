@@ -3,8 +3,8 @@
 namespace SuperView\Dal\Api;
 
 /**
-* Tag Dal.
-*/
+ * Utils Dal.
+ */
 class Utils extends Base
 {
     /**

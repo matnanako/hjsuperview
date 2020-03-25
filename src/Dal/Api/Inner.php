@@ -3,8 +3,8 @@
 namespace SuperView\Dal\Api;
 
 /**
-* Mini Dal.
-*/
+ * Inner Dal.
+ */
 class Inner extends Base
 {
     /**
@@ -21,7 +21,7 @@ class Inner extends Base
         $params = [
             'is_ztid' => intval($is_ztid),
             'classid' => intval($classid),
-            'limit'     => intval($limit),
+            'limit' => intval($limit),
             'random' => $random,
         ];
         return $this->getData('lists', $params);

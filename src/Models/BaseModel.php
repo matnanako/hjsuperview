@@ -16,9 +16,9 @@ class BaseModel
 
     protected static $instances;
 
-    protected  static $fitter;
+    protected static $fitter;
 
-    protected  $actionPage = false;
+    protected $actionPage = false;
 
     public static $additional = false;
 
@@ -47,6 +47,7 @@ class BaseModel
     {
         $this->virtualModel = $virtualModel;
     }
+
     /**
      * 设置分页属性.
      *
@@ -68,7 +69,7 @@ class BaseModel
      */
     public function setFilterOptions($filterOptions)
     {
-        self::$fitter=$filterOptions;
+        self::$fitter = $filterOptions;
     }
 
     /**
@@ -87,8 +88,9 @@ class BaseModel
      */
     public function getActionPage()
     {
-       return $this->actionPage;
+        return $this->actionPage;
     }
+
     /**
      * 重置当前Model的属性(目前包含分页属性). &&   列表过滤查询字段（basis，advance）
      *
@@ -107,24 +109,18 @@ class BaseModel
      *
      * @return array
      */
-    public function returnWithPage($data, $limit)
+    public function returnWithPage($data)
     {
         //针对count方法只返回字符串
-        if(is_string($data))
-        {
+        if (is_string($data)) {
             return $data;
         }
         $data['list'] = $data['list'] ?? $data;
-        $data['count'] = $data['count'] ??  0;
+        $data['count'] = $data['count'] ?? 0;
         // 未设置分页url路由规则, 直接返回'list'包含数组.
         if (empty($this->pageOptions) || $this->pageOptions['route'] === false) {
-            $response = empty($data['list'])?[]:$data['list'];
+            $response = empty($data['list']) ? [] : $data['list'];
         } else {
-            $data['page'] = "";
-            if (!empty($this->pageOptions['route'])) {
-                $page = new Page($this->pageOptions['route'], $data['count'], $limit, $this->pageOptions['currentPage'], $this->pageOptions['simple'], $this->pageOptions['options']);
-                $data['page'] = $page->render();
-            }
             $response = $data;
         }
         return $response;
@@ -133,16 +129,19 @@ class BaseModel
     /**
      * Generate cache key by params.
      *
+     * @param $method
+     * @param array $params
      * @return string
+     * @throws \Exception
      */
 //  //缓存名称方式重构
     public function makeCacheKey($method, $params = [])
     {
         //树缓存单独拧出
-        if($method=='SuperView\Models\CategoryModel::all'){
+        if ($method == 'SuperView\Models\CategoryModel::all') {
             return ':TotalCategory';
         }
-       return CacheKey::makeCachekey($method, $params, $this->virtualModel);
+        return CacheKey::makeCachekey($method, $params, $this->virtualModel);
     }
 
     /**
@@ -173,43 +172,14 @@ class BaseModel
     public function addListInfo($data)
     {
         $categoryModel = CategoryModel::getInstance('category');
-        if(isset($data['list'])){
+        if (isset($data['list'])) {
             foreach ($data['list'] as $key => $value) {
-                if(!isset($value['classid']) || !isset($value['id'])) return $data;   //此判断针对getOnly部分方法如专题不需要走addlist方法的
+                if (!isset($value['classid']) || !isset($value['id'])) return $data;   //此判断针对getOnly部分方法如专题不需要走addlist方法的
                 $category = $categoryModel->info($value['classid']);
-                $data['list'][$key]['infourl'] = $this->infoUrl($value['id'], $category);
                 $data['list'][$key]['classname'] = $category['classname'];
                 $data['list'][$key]['classpath'] = $category['classpath'];
-                $data['list'][$key]['classurl'] = $categoryModel->categoryUrl($value['classid']); //TODO infourl与下载之家不同
-                $data['list'][$key]['category'] = $category;
             }
         }
         return $data;
-     }
-
-    /**
-     * 获取详情页url.
-     */
-    public function infoUrl($id, $category)
-    {
-        $infoUrlTpl = \SConfig::get('info_url');
-        $infourl = str_replace(
-            ['{channel}', '{classname}', '{classid}', '{id}'],
-            [$category['channel'], $category['bname'], $category['classid'], $id],
-            $infoUrlTpl
-        );
-        return $infourl;
-    }
-
-    /**
-     * 获取方法limit值
-     *
-     * @param $method
-     * @param $params
-     * @throws \Exception
-     */
-    public function getLimit($method, $params)
-    {
-        return CacheKey::getLimit($this->virtualModel, $method, $params);
     }
 }

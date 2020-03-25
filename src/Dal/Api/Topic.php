@@ -3,8 +3,8 @@
 namespace SuperView\Dal\Api;
 
 /**
-* Topic Dal.
-*/
+ * Topic Dal.
+ */
 class Topic extends Base
 {
 
@@ -28,9 +28,9 @@ class Topic extends Base
     public function getGood($showzt, $classid, $page, $limit, $order)
     {
         $params = [
-            'showzt'  => ($showzt),
-            'classid'   => ($classid),
-            'page'  => intval($page),
+            'showzt' => ($showzt),
+            'classid' => ($classid),
+            'page' => intval($page),
             'limit' => intval($limit),
             'order' => $order,
         ];
@@ -44,9 +44,9 @@ class Topic extends Base
     public function getList($zcid, $classid, $page, $limit, $order)
     {
         $params = [
-            'zcid'  => ($zcid),
-            'cid'   => ($classid),
-            'page'  => intval($page),
+            'zcid' => ($zcid),
+            'cid' => ($classid),
+            'page' => intval($page),
             'limit' => intval($limit),
             'order' => $order,
         ];
@@ -60,7 +60,7 @@ class Topic extends Base
     public function getInfo($id, $path)
     {
         $params = [
-            'id'   => intval($id),
+            'id' => intval($id),
             'path' => $path,
         ];
         return $this->getData('info', $params);
@@ -87,8 +87,8 @@ class Topic extends Base
     public function getContentByTopicId($ztid, $page, $limit)
     {
         $params = [
-            'ztid'  => intval($ztid),
-            'page'  => intval($page),
+            'ztid' => intval($ztid),
+            'page' => intval($page),
             'limit' => intval($limit),
         ];
         return $this->getData('superTopic', $params);
@@ -101,13 +101,14 @@ class Topic extends Base
     public function taginfo($ztid, $classid, $page, $limit)
     {
         $params = [
-            'ztid'  => intval($ztid),
-            'classid'  => intval($classid),
-            'page'  => intval($page),
+            'ztid' => intval($ztid),
+            'classid' => intval($classid),
+            'page' => intval($page),
             'limit' => intval($limit),
         ];
         return $this->getData('taginfo', $params);
     }
+
     /**
      * 详情页定制接口
      *
@@ -119,7 +120,7 @@ class Topic extends Base
     public function getSpecials($id, $model, $baikelimit, $softlimit)
     {
         $params = [
-            'id'    => $id,
+            'id' => $id,
             'model' => $model,
             'baikelimit' => $baikelimit,
             'softlimit' => $softlimit,
@@ -138,7 +139,7 @@ class Topic extends Base
     public function recentInClass($classid, $limit, $order)
     {
         $params = [
-            'classid'  => $classid,
+            'classid' => $classid,
             'limit' => $limit,
             'order' => $order,
         ];
@@ -156,7 +157,7 @@ class Topic extends Base
     public function getListInIdClassId($id, $classid, $limit)
     {
         $params = [
-            'classid'  => $classid,
+            'classid' => $classid,
             'limit' => $limit,
             'id' => $id,
         ];
@@ -175,7 +176,7 @@ class Topic extends Base
     public function getMatchZt($fields, $limit, $order, $database)
     {
         $params = [
-            'fields'  => $fields,
+            'fields' => $fields,
             'limit' => $limit,
             'order' => $order,
             'database' => $database,
@@ -195,7 +196,7 @@ class Topic extends Base
     public function getMatch($fields, $limit, $order)
     {
         $params = [
-            'fields'  => $fields,
+            'fields' => $fields,
             'limit' => $limit,
             'order' => $order,
         ];
@@ -212,7 +213,7 @@ class Topic extends Base
     public function getSoftByZtid($fields, $order)
     {
         $params = [
-            'fields'  => $fields,
+            'fields' => $fields,
             'order' => $order
         ];
         return $this->getData('softByZtid', $params);
@@ -229,7 +230,7 @@ class Topic extends Base
     public function getztCommon($ids, $limit, $group)
     {
         $params = [
-            'ids'  => $ids,
+            'ids' => $ids,
             'limit' => $limit,
             'group' => $group
         ];
@@ -245,7 +246,7 @@ class Topic extends Base
     public function inZtid($ztid)
     {
         $params = [
-            'ztid'  => $ztid,
+            'ztid' => $ztid,
         ];
         return $this->getData('inZtid', $params);
 
@@ -260,7 +261,7 @@ class Topic extends Base
     public function getIdByZid($ztid)
     {
         $params = [
-            'ztid'  => $ztid,
+            'ztid' => $ztid,
         ];
         return $this->getData('getIdByZid', $params);
     }
@@ -271,14 +272,16 @@ class Topic extends Base
      * @param $fields
      * @param $limit
      * @param $order
+     * @param $database
      * @return array|bool
      */
-    public function ztaddJoinzt($fields, $limit, $order, $page)
+    public function ztaddJoinzt($fields, $limit, $order, $database, $page)
     {
         $params = [
-            'fields'  => $fields,
+            'fields' => $fields,
             'limit' => $limit,
             'order' => $order,
+            'database' => $database,
             'page' => $page
         ];
         return $this->getData('ztaddJoinzt', $params);
@@ -294,7 +297,7 @@ class Topic extends Base
     public function ztBetween($min, $max)
     {
         $params = [
-            'min'  => $min,
+            'min' => $min,
             'max' => $max,
         ];
         return $this->getData('ztBetween', $params);
@@ -311,7 +314,7 @@ class Topic extends Base
     public function ztidNotIn($ztids, $limit, $order)
     {
         $params = [
-            'ztids'  => $ztids,
+            'ztids' => $ztids,
             'limit' => $limit,
             'order' => $order,
         ];

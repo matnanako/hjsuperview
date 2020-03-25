@@ -3,8 +3,8 @@
 namespace SuperView\Dal\Api;
 
 /**
-* Category Dal.
-*/
+ * Category Dal.
+ */
 class Category extends Base
 {
 
@@ -24,7 +24,7 @@ class Category extends Base
     /**
      * Set top category id.
      *
-     * @param  int  $classid
+     * @param  int $classid
      * @return array
      */
     private function setChannel(&$categories, $classid)
