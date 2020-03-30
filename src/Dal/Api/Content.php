@@ -181,13 +181,14 @@ class Content extends Base
      * @param $order
      * @return array|bool
      */
-    public function getOrderList($classid, $page, $limit, $order)
+    public function getOrderList($classid, $page, $limit, $order, $database)
     {
         $params = [
             'classid' => $classid,
             'page' => $page,
             'limit' => intval($limit),
             'order' => $order,
+            'database' => $database
         ];
         return $this->getData('order', $params);
     }

@@ -35,10 +35,10 @@ class ContentModel extends BaseModel
     /**
      *  排序信息列表
      */
-    public function order($classid = 0, $limit = 0, $order = 'newstime')
+    public function order($classid = 0, $limit = 0, $order = 'newstime', $database = 'database')
     {
         $page = $this->getCurrentPage();
-        return $this->dal()->getOrderList($classid, $page, $limit, $order);
+        return $this->dal()->getOrderList($classid, $page, $limit, $order, $database);
     }
 
     /**

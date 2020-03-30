@@ -163,7 +163,7 @@ SuperView::get('soft')->page(false)->recent(); // 默认为第一页, 作用相�
 ### content 内容模块
 使用具体的`channel`名称, 只有不确定`channel`才使用`content`(目前只有`superTopic`方法支持使用`content`)
 
-#### 1. order($classid, $limit, $order)
+#### 1. order($classid, $limit, $order, $database)
 排序列表
 
 参数:
@@ -172,6 +172,7 @@ SuperView::get('soft')->page(false)->recent(); // 默认为第一页, 作用相�
 | classid       | 分类ID                              | 否    | 0       |
 | limit         | 每页数据量,0为不限制                | 否    | 0       |
 | order         | 排序字段                          | 否    | newstime       |
+| database      | 数据库                            | 否   | database |
 
 #### 2. info($id)
 获取内容信息
