@@ -295,7 +295,7 @@ class ContentModel extends BaseModel
      */
     public function customVary($fields = [], $vary = [], $limit = 0, $order = 'weekip')
     {
-        return $this->dal['inner']->customVary($fields, $vary, $limit, $order);
+        return $this->dal()->customVary($fields, $vary, $limit, $order);
     }
 
     /**
