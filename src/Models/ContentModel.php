@@ -307,7 +307,7 @@ class ContentModel extends BaseModel
      * @param int $order
      * @return mixed
      */
-    public function infoList($field = '', $value = 0, $limit = 0, $order = 1)
+    public function infoList($field = '', $value = 0, $limit = 0, $order = 'lastdotime')
     {
         $page = $this->getCurrentPage();
         return $this->dal()->getinfoList($field, $value, $page, $limit, $order);
