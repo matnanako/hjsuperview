@@ -10,7 +10,7 @@ return [
     'refresh_cache' => 0,
 
     // Api service host.
-    'api_base_url' => 'http://hj.api.zz314.com/huajun', //test
+    'api_base_url' => 'http://hj.api.zz314.com/huajun',
 
     // Models alias map to class.
     'models' => [
@@ -50,7 +50,7 @@ return [
     //新缓存规则部分是使用
     'type' => [
         'category' => ['category'],
-        'soft' => ['soft', 'android', 'ios', 'applet', 'dnb', 'mini'],
+        'soft' => ['soft', 'android', 'ios', 'applet', 'dnb', 'mini', 'download'],
         'news' => ['news'],
         'zt' => ['zt'],
         'strategy' => ['strategy'],

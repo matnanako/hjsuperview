@@ -148,9 +148,9 @@ class TopicModel extends BaseModel
      * @param $order
      * @return mixed
      */
-    public function match($fields, $limit = 0, $order = 'addtime')
+    public function match($fields, $limit = 0, $order = 'addtime', $database = 'database')
     {
-        return $this->dal['zt']->getMatch($fields, $limit, $order);
+        return $this->dal['zt']->getMatch($fields, $limit, $order, $database);
     }
 
     /**
@@ -238,5 +238,32 @@ class TopicModel extends BaseModel
     public function ztidNotIn($ztids = [], $limit = 0, $order = 'addtime')
     {
         return $this->dal['zt']->ztidNotIn($ztids, $limit, $order);
+    }
+
+    /**
+     * news站专用方法 (分类自定义方法)
+     *
+     * @param array $fields
+     * @param int $limit
+     * @param string string $order
+     * @param string $database
+     * @return mixed
+     */
+    public function classMatch($fields, $limit, $order = 'classid', $database = 'database')
+    {
+        return $this->dal['zt']->classMatch($fields, $limit, $order, $database);
+    }
+
+    /**
+     * news站专用方法（ztinfo表关联news表查询列表）
+     *
+     * @param array $fields
+     * @param int $limit
+     * @param string $order
+     * @return mixed
+     */
+    public function listByZtinfoNews($fields = [], $limit = 0, $order = 'newstime', $database = 'news')
+    {
+        return $this->dal['zt']->getListByZtinfoNews($fields, $limit, $order, $database);
     }
 }

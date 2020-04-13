@@ -460,7 +460,7 @@ dnb 详情页专题定制方法 （通过软件id和classid获取列表）
 | order         | 排序字段                                     | 否    | newstime |
 | database         | 数据库                                     | 否    | database |
 
-#### 7.match($fields, $limit, $order)
+#### 7.match($fields, $limit, $order, $database)
 自定参数请求（不需要关联查询）
 
 参数：
@@ -469,6 +469,7 @@ dnb 详情页专题定制方法 （通过软件id和classid获取列表）
 | fields        | 参数 和值 ['name'=>'tom', 'id'=>1]                                | 是    | null     |
 | limit         | 每页数据量,0为不限制                         | 否    | 0        |
 | order         | 排序字段                                     | 否    | newstime |
+| database         | 数据库                                     | 否    | database |
 
 #### 8.softByZtid($fields, $order)
 通过ztid获取soft和ztinfo信息(关联查询)
@@ -534,6 +535,28 @@ ztadd & zt表关联信息  (参数前缀 定死为zt , ztadd)
 | ztids        | ztid  [1,2]                              | 是    | null     |
 | limit         | 每页数据量,0为不限制                         | 否    | 0        |
 | order         | 排序字段                                     | 否    | newstime |
+
+#### 15.classMatch($fields, $limit, $order = 'classid', $database = 'database')
+自定义获取分类
+
+参数:
+| 参数名        | 描述                                | 必填  | 默认    |
+| ------------- | ----------------------------------- | :---: | :-----: |
+| fields          |        参数['a'=>1, 'b'=>2]         | 是    | 0    |
+| limit          |             条数            | 是    | 0    |
+| order          |        排序                   | 是    | classid    |
+| database          |      news                   | 是    | database    |
+
+#### 16.listByZtinfoNews($fields, $limit, $order, $database)
+news站专用方法（ztinfo表关联news表查询列表）
+
+参数：
+| 参数名        | 描述                                         | 必填  | 默认     |
+| ------------- | -------------------------------------------- | :---: | :------: |
+| fields        |   ['a'=>1, 'b'=>2]                              | 是    | null     |
+| limit         | 每页数据量,0为不限制                         | 否    | 0        |
+| order         | 排序字段                                     | 否    | newstime |
+| database         | 数据库                                    | 否    | news |
 
 ### other 其他模块
 

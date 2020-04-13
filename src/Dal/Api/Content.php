@@ -331,6 +331,27 @@ class Content extends Base
     }
 
     /**
+     * title列表
+     * @return boolean | array
+     */
+    public function getListByTitle($title, $classid, $page, $limit, $isPic, $order)
+    {
+        if (!$this->isValidOrder($order)) {
+            return false;
+        }
+
+        $params = [
+            'title'   => $title,
+            'classid' => ($classid),
+            'page'    => intval($page),
+            'limit'   => intval($limit),
+            'ispic'   => intval($isPic),
+            'order'   => $order,
+        ];
+        return $this->getData('title', $params);
+    }
+
+    /**
      * 自定义参数请求 （参数和值数量必须对应）
      *
      * @param string $fields 请求字段 多个参数以逗号分隔

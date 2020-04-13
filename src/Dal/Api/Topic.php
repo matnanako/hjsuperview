@@ -191,14 +191,16 @@ class Topic extends Base
      * @param $value
      * @param $limit
      * @param $order
+     * @param $database
      * @return array|bool
      */
-    public function getMatch($fields, $limit, $order)
+    public function getMatch($fields, $limit, $order, $database)
     {
         $params = [
             'fields' => $fields,
             'limit' => $limit,
             'order' => $order,
+            'database' =>$database,
         ];
         return $this->getData('match', $params);
     }
@@ -320,5 +322,45 @@ class Topic extends Base
         ];
         return $this->getData('ztidNotIn', $params);
 
+    }
+
+    /**
+     * 分类自定义方法(news站专用方法)
+     *
+     * @param $fields
+     * @param $limit
+     * @param $order
+     * @param $database
+     * @return array|bool
+     */
+    public function classMatch($fields, $limit, $order, $database)
+    {
+        $params = [
+            'fields' => $fields,
+            'order' => $order,
+            'limit' => intval($limit),
+            'database' => $database,
+        ];
+        return $this->getData('classMatch', $params);
+    }
+
+    /**
+     * news站专用方法（ztinfo表关联news表查询列表）
+     *
+     * @param $fields
+     * @param $limit
+     * @param $order
+     * @param $database
+     * @return array|bool
+     */
+    public function getListByZtinfoNews($fields, $limit, $order, $database)
+    {
+       $params = [
+           'fields' => $fields,
+           'limit' => $limit,
+           'order' => $order,
+           'database' => $database,
+       ];
+       return $this->getData('listByZtinfoNews', $params);
     }
 }

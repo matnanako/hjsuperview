@@ -84,6 +84,18 @@ class ContentModel extends BaseModel
     }
 
     /**
+     * 相同标题信息列表.
+     */
+    public function title($title = '', $classid = 0, $limit = 0, $isPic = 0, $order = 'newstime')
+    {
+        if (empty($title)) {
+            return false;
+        }
+        $page = $this->getCurrentPage();
+        return $this->dal()->getListByTitle($title, $classid, $page, $limit, $isPic, $order);
+    }
+
+    /**
      * 获取dal模型.
      *
      * @return object
