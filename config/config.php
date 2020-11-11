@@ -23,6 +23,7 @@ return [
         'inner' => SuperView\Models\InnerModel::class,
         'foot' => SuperView\Models\InnerModel::class,
         'other' => SuperView\Models\OtherModel::class,
+        'tag' => SuperView\Models\TagModel::class
     ],
 
     'dals' => [
@@ -35,6 +36,7 @@ return [
         'inner' => SuperView\Dal\Api\Inner::class,
         'foot' => SuperView\Dal\Api\Inner::class,
         'other' => SuperView\Dal\Api\Other::class,
+        'tag' => SuperView\Dal\Api\Tag::class
     ],
 
     'pagination' => [
