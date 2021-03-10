@@ -559,6 +559,11 @@ news站专用方法（ztinfo表关联news表查询列表）
 | order         | 排序字段                                     | 否    | newstime |
 | database         | 数据库                                    | 否    | news |
 
+#### 17.ztListType()
+获取专题所有新分类
+
+
+
 ### tag 模块
 
 #### 1.tag($softid)

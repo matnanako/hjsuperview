@@ -187,20 +187,21 @@ class Topic extends Base
     /**
      * 自定参数请求（不需要关联查询）
      *
-     * @param $fileds
-     * @param $value
+     * @param $fields
      * @param $limit
      * @param $order
+     * @param $page
      * @param $database
      * @return array|bool
      */
-    public function getMatch($fields, $limit, $order, $database)
+    public function getMatch($fields, $limit, $order, $page, $database)
     {
         $params = [
             'fields' => $fields,
             'limit' => $limit,
             'order' => $order,
             'database' =>$database,
+            'page' => $page
         ];
         return $this->getData('match', $params);
     }
@@ -362,5 +363,15 @@ class Topic extends Base
            'database' => $database,
        ];
        return $this->getData('listByZtinfoNews', $params);
+    }
+
+    /**
+     * 专题首页所有分类
+     *
+     * @return array|bool|mixed
+     */
+    public function getZtListType()
+    {
+        return $this->getData('ztListType');
     }
 }

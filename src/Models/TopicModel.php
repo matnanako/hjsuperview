@@ -150,7 +150,8 @@ class TopicModel extends BaseModel
      */
     public function match($fields, $limit = 0, $order = 'addtime', $database = 'database')
     {
-        return $this->dal['zt']->getMatch($fields, $limit, $order, $database);
+        $page = $this->getCurrentPage();
+        return $this->dal['zt']->getMatch($fields, $limit, $order, $page, $database);
     }
 
     /**
@@ -265,5 +266,15 @@ class TopicModel extends BaseModel
     public function listByZtinfoNews($fields = [], $limit = 0, $order = 'newstime', $database = 'news')
     {
         return $this->dal['zt']->getListByZtinfoNews($fields, $limit, $order, $database);
+    }
+
+    /**
+     * 专题首页所有分类
+     *
+     * @return mixed
+     */
+    public function ztListType()
+    {
+        return $this->dal['zt']->getZtListType();
     }
 }
