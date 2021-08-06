@@ -96,6 +96,31 @@ class ContentModel extends BaseModel
     }
 
     /**
+     * 信息相关列表.(仅可用户article模型)
+     */
+    public function related($id = 0, $limit = 0, $isPic = 0, $order = 'newstime')
+    {
+        if (empty($id)) {
+            return false;
+        }
+        $page = $this->getCurrentPage();
+        return $this->dal()->getRelatedList($id, $page, $limit, $isPic, $order);
+    }
+
+    /**
+     * TAG信息列表.(仅可用户article模型)
+     */
+    public function tag($tag = '',$classid = 0, $limit = 0, $isPic = 0, $order = 'newstime')
+    {
+        if (empty($tag)) {
+            return false;
+        }
+        $page = $this->getCurrentPage();
+        return $this->dal()->getListByTag($tag, $classid, $page, $limit, $isPic, $order);
+    }
+
+
+    /**
      * 获取dal模型.
      *
      * @return object

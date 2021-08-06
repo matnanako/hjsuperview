@@ -477,4 +477,45 @@ class Content extends Base
         ];
         return $this->getData('infoList', $params);
     }
+
+    /**
+     * 信息相关列表
+     * @return boolean | array
+     */
+    public function getRelatedList($id, $page, $limit, $isPic, $order)
+    {
+        if (!$this->isValidOrder($order)) {
+            return false;
+        }
+
+        $params = [
+            'id'    => ($id),
+            'page'  => intval($page),
+            'limit' => intval($limit),
+            'ispic' => intval($isPic),
+            'order' => $order,
+        ];
+        return $this->getData('related', $params);
+    }
+
+    /**
+     * TAG信息列表
+     * @return boolean | array
+     */
+    public function getListByTag($tag,$classid, $page, $limit, $isPic, $order)
+    {
+        if (!$this->isValidOrder($order)) {
+            return false;
+        }
+
+        $params = [
+            'tag'   => $tag,
+            'classid' => $classid,
+            'page'  => intval($page),
+            'limit' => intval($limit),
+            'ispic' => intval($isPic),
+            'order' => $order,
+        ];
+        return $this->getData('tag', $params);
+    }
 }

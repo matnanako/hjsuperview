@@ -391,6 +391,30 @@ dnb 列表 （id not in&operator_id in）
 | limit        | 每页数据量, 需要大于1,0为不限制          | 是    | null    |
 | order         |  排序                                   | 否   | sum    |
 
+#### 23.related(id, $limit, $isPic, $order)
+相关资讯（目前仅可用于article模型） -- 某资讯下tag词相关的所有资讯（除当前资讯本身）
+
+参数:
+| 参数名          | 描述                                         | 必填  | 默认     |
+| --------------- | -------------------------------------------- | :---: | :------: |
+| id         |  资讯id                                     | 是    | ''     |
+| limit        | 每页数据量, 需要大于1,0为不限制          | 是    | null    |
+| isPic        | 是否图片         | 否   | null    |
+| order         |  排序                                   | 否   | newstime    |
+
+#### 24.tag($tag = '',$classid = 0, $limit = 0, $isPic = 0, $order = 'newstime')
+tag相关资讯列表(目前仅可用于article模型) --某tag词下的所有资讯
+
+参数:
+| 参数名          | 描述                                         | 必填  | 默认     |
+| --------------- | -------------------------------------------- | :---: | :------: |
+| tag         | tag词                                   | 是    | ''     |
+| classid        | 每页数据量, 需要大于1,0为不限制          | 是    | null    |
+| limit        | 每页数据量, 需要大于1,0为不限制          | 是    | null    |
+| isPic        | 是否图片         | 否   | null    |
+| order         |  排序                                   | 否   | newstime    |
+
+
 ### zt 专题模块
 
 #### 0. good($showzt, $classid, $limit, $order)
