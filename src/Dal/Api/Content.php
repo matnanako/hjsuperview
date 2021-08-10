@@ -19,7 +19,7 @@ class Content extends Base
      * 排序因子枚举
      */
     private static $orderKeys = [
-        'newstime', 'newstimeasc', 'allhits', 'monthhits', 'weekhits', 'id', 'lastdotime', 'totalip',
+        'newstime', 'newstimeasc', 'allhits', 'monthhits', 'weekhits', 'id', 'lastdotime', 'totalip', 'onclick'
     ];
 
     /**

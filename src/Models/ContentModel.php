@@ -29,7 +29,7 @@ class ContentModel extends BaseModel
     public function good($level = 0, $classid = 0, $limit = 0, $isPic = 0, $order = 'newstime')
     {
         $page = $this->getCurrentPage();
-        return $this->dal()->getLevelList('isgood', $classid, $page, $limit, $isPic, $level, $order);
+        return $this->dal()->getLevelList('good', $classid, $page, $limit, $isPic, $level, $order);
     }
 
     /**
