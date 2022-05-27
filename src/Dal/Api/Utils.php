@@ -21,4 +21,20 @@ class Utils extends Base
         return $this->getData('relationWord', $params);
     }
 
+    /**
+     * 新增多端方法plateform方法
+     *
+     * @param $softid
+     * @param $model
+     * @return array|false|mixed
+     */
+    public function plateform($softid, $model)
+    {
+        $params = [
+            'softid' => $softid,
+            'model' => $model
+        ];
+        return $this->getData('plateform', $params);
+    }
+
 }

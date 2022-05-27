@@ -678,6 +678,15 @@ tdk
 | simple          | 是否使用简洁模式                             | 否    | false    |
 | options         | 数组, 参考Configs下的pagination              | 否    | 20       |
 
+#### 4.plateform($softid = 0, $model = 'download')
+获取多端信息（注：soft模型使用download）
+
+参数:
+| 参数名          | 描述                                         | 必填  | 默认     |
+| --------------- | -------------------------------------------- | :---: | :------: |
+| softid          | 软件id                                  | 是    | 0     |
+| model           | 模型（表名）                             | 是    | download     |
+
 ### comment 评论模块
 #### 1.comment($id, $limit, $order)
 获取评论

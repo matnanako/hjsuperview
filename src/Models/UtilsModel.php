@@ -27,4 +27,16 @@ class UtilsModel extends BaseModel
         return $this->dal['utils']->relationWord($softid);
     }
 
+    /**
+     * 新增多端方法plateform方法
+     *
+     * @param int $softid
+     * @param string $model
+     * @return mixed
+     */
+    public function plateform($softid = 0, $model = 'download')
+    {
+        return $this->dal['utils']->plateform($softid, $model);
+    }
+
 }
